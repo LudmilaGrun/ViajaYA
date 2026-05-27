@@ -1,20 +1,21 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { AdminLayout } from './layout/AdminLayout';
-import { DashboardPage } from './pages/DashboardPage';
-import { UsersPage } from './pages/UsersPage';
-import { TripsPage } from './pages/TripsPage';
-import { CompaniesPage } from './pages/CompaniesPage';
-import { SupportPage } from './pages/SupportPage';
+import { Link, Route, Routes } from 'react-router-dom';
+
+const Dashboard = () => <div className='glass p-6'><h1 className='text-2xl font-bold'>Dashboard ViajaYA</h1><p>Métricas, usuarios, reservas y revenue.</p></div>;
+const Crud = ({ name }) => <div className='glass p-6'><h2 className='text-xl'>{name}</h2><p>Tabla, filtros, buscador, CRUD.</p></div>;
 
 export const App = () => (
-  <Routes>
-    <Route path="/" element={<AdminLayout />}>
-      <Route index element={<DashboardPage />} />
-      <Route path="users" element={<UsersPage />} />
-      <Route path="trips" element={<TripsPage />} />
-      <Route path="companies" element={<CompaniesPage />} />
-      <Route path="support" element={<SupportPage />} />
-    </Route>
-    <Route path="*" element={<Navigate to="/" replace />} />
-  </Routes>
+  <div className='min-h-screen grid grid-cols-[260px_1fr]'>
+    <aside className='p-4 border-r border-white/10 space-y-3'>
+      {['/','/users','/trips','/reservations','/support'].map((p) => <Link key={p} to={p} className='block glass p-3'>{p === '/' ? 'Dashboard' : p.slice(1)}</Link>)}
+    </aside>
+    <main className='p-6'>
+      <Routes>
+        <Route path='/' element={<Dashboard/>}/>
+        <Route path='/users' element={<Crud name='Usuarios'/>}/>
+        <Route path='/trips' element={<Crud name='Viajes'/>}/>
+        <Route path='/reservations' element={<Crud name='Reservas'/>}/>
+        <Route path='/support' element={<Crud name='Soporte'/>}/>
+      </Routes>
+    </main>
+  </div>
 );
