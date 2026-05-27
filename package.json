@@ -1,0 +1,24 @@
+{
+  "name": "viajaya-monorepo",
+  "private": true,
+  "workspaces": [
+    "server",
+    "mobile",
+    "web-admin"
+  ],
+  "scripts": {
+    "install:all": "npm i -w server -w mobile -w web-admin",
+    "dev": "concurrently \"npm:dev -w server\" \"npm:dev -w web-admin\"",
+    "dev:mobile": "npm run dev -w mobile",
+    "lint": "npm run lint -w server && npm run lint -w web-admin && npm run lint -w mobile"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  },
+  "overrides": {
+    "react-native-screens": "~4.4.0",
+    "react-native-safe-area-context": "4.12.0",
+    "react-native-gesture-handler": "~2.20.2",
+    "react-native-reanimated": "~3.16.1"
+  }
+}
